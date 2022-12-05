@@ -79,6 +79,16 @@
       assignment 3: cpuid -l 0x4ffffffe -s exit_number
                     cpuid -l 0x4fffffff -s exit_number
 
+  15. The code change, compile, run, check cycle once the host is running with modified kernel with guest os setup via virt-mgr is:
+      make -j "($nproc)" modules
+      sudo make INSTALL_MOD_STRIP=1 modules_install
+      Turn off guest VM to remove kvm dependency
+      sudo rmmod kvm_intel
+      sudo rmmod kvm
+      sudo modprobe kvm
+      sudo modprobe kvm_intel
+      Turn on guest VM and run cpuid to verify the changes
+      
 
 ## Typical Output:
 1. Assignment 2 Leaf 0x4ffffffc:
