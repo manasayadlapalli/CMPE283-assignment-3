@@ -71,6 +71,7 @@ MODULE_LICENSE("GPL");
 
 //CMPE283-assignment-3
 extern u32 vmx_exit_counters[70];
+extern u64 vmx_exit_cycles[70];
 
 #ifdef MODULE
 static const struct x86_cpu_id vmx_cpu_id[] = {
@@ -5897,6 +5898,7 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	union vmx_exit_reason exit_reason = vmx->exit_reason;
 	u32 vectoring_info = vmx->idt_vectoring_info;
 	u16 exit_handler_index;
+	u64 start_time = rdtsc();
 
 	/*
 	 * Flush logged GPAs PML buffer, this will make dirty_bitmap more
@@ -5911,6 +5913,7 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 
 	if (exit_reason.basic < 70) {
 		vmx_exit_counters[exit_reason.basic]++;
+		vmx_exit_cycles[exit_reason.basic] += rdtsc() - start_time;
 	}
 	/*
 	 * We should never reach this point with a pending nested VM-Enter, and
