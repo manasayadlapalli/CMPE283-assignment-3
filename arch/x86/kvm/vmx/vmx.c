@@ -69,6 +69,9 @@
 MODULE_AUTHOR("Qumranet");
 MODULE_LICENSE("GPL");
 
+//CMPE283-assignment-3
+extern u32 vmx_exit_counters[70];
+
 #ifdef MODULE
 static const struct x86_cpu_id vmx_cpu_id[] = {
 	X86_MATCH_FEATURE(X86_FEATURE_VMX, NULL),
@@ -5906,6 +5909,9 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	if (enable_pml && !is_guest_mode(vcpu))
 		vmx_flush_pml_buffer(vcpu);
 
+	if (exit_reason.basic < 70) {
+		vmx_exit_counters[exit_reason.basic]++;
+	}
 	/*
 	 * We should never reach this point with a pending nested VM-Enter, and
 	 * more specifically emulation of L2 due to invalid guest state (see
