@@ -1,4 +1,4 @@
-# CMPE283-assignment-2-3
+# CMPE283-assignment-3
 ## Team Members:
 1. Shubadha Paithankar(SJSU ID: 016013283)
 2. Sai Manasa Yadlapalli (SJSU ID: 015999659)
@@ -14,8 +14,8 @@
       
       Terminology:
       
-     * Baremetal = Windows 11 (or) some hypervisor in GCP instance
-     * Host OS   = Ubuntu 22.04 (via VMware player if on windows 11 / VM if GCP)
+     * Baremetal = Windows 11
+     * Host OS   = Ubuntu 22.04 (via VMware player on windows 11)
      * Guest OS  = new VM instance of Ubuntu 22.04 using kvm,virt-mgr running on Host OS
       
       Install the following packages on host os for local linux kernel build. Choose default options if presented:
@@ -111,11 +111,15 @@
       * Turn on guest VM and run cpuid to verify the changes
       
 
-## Typical Output:
-1. Assignment 2 Leaf 0x4ffffffc:
-2. Assignment 2 Leaf 0x4ffffffd:
-3. Assignment 3 Leaf 0x4ffffffe:
-4. Assignment 4 Leaf 0x4fffffff:
+## Assignment Test Output over a VM boot:
+1. Assignment 3 Leaf 0x4ffffffe:
+  ![image](https://user-images.githubusercontent.com/87613567/207153831-b019ab44-b01a-4da1-a891-b5eaa1432478.png)
+  ![image](https://user-images.githubusercontent.com/87613567/207154136-f8e095c1-748f-4908-b91b-c38affcbde68.png)
+
+2. Assignment 3 Leaf 0x4fffffff:
+  ![image](https://user-images.githubusercontent.com/87613567/207154308-ac472887-8201-4d63-9f21-4d96943cd3c1.png)
+  ![image](https://user-images.githubusercontent.com/87613567/207154418-09caed63-d95e-448d-ae18-3e28faa0ac51.png)
+
 
 ## References: 
 1. Building linux kernel from scratch on Ubuntu 2204: https://saveriomiroddi.github.io/A-precise-guide-to-build-a-custom-linux-kernel/
