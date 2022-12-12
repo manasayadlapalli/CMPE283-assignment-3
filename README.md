@@ -26,13 +26,16 @@
 
       
   2. Clone the official Linux tree from github: https://github.com/torvalds/linux
+  
       `git clone git@github.com:torvalds/linux.git`
       `cd linux`
   
   3. Switch to a kernel version branch similar to the current ubuntu host:
+  
      ` git checkout "$(uname -r | cut -d. -f1-2)"`
   
   4. Create a baseline build config from existing host configuration:
+  
       `make olddefconfig`
       
   5. Do the following customizations to the config file to get rid off trusted keys, debug information
@@ -49,31 +52,39 @@
   Verify the changes via : `scripts/diffconfig .config{.old,}`
       
   6. Build the modules and kernel
+  
       `make -j "($nproc)" modules && make -j "($nproc)"`
   
   7. Install the modules and the newly built kernel to host
+  
       `sudo make INSTALL_MOD_STRIP=1 modules_install && sudo make install`
       
   8. Verify that you can see the new modules installed at: /var/lib/modules (should be 5.15.0+ dir here)
      new kernel image and init image here: /boot  (vmlinuz-5.15.0+ and initrd.img-5.15.0+)
      
   9. Switch to the newly installed kernel explicitly by kexec:
+  
      `sudo kexec -l /boot/vmlinuz-5.15.0+ --initrd=/boot/initrd.img-5.15.0+ --reuse-cmdline`
+     
      `sudo systemctl kexec`
   
   10. Assignment 2,3 are cpuid changes on kvm module. Exercising this requires a KVM based nested VM on host OS.
       We installed a ubuntu 2204 guest vm on host ubuntu 2204 running on the newly built kernel via:
+      
       `sudo apt install libvirt-clients libvirt-daemon-system libvirt-daemon virtinst bridge-utils qemu qemu-kvm virt-manager`
       
   11. Check kvm installation status by running:
-     ` kvm-ok`
+  
+     `kvm-ok`
   
   12. To be able to install and run virt-manager as a regular user:
+  
       `sudo chown username:username /var/run/libvirt/libvirt-sock`
       
   13. Downloaded, configured and installed a guest VM ubuntu2204 desktop image.
   
   14. Within the guest VM, installed the cpuid package to exercize the modified kvm behavior via e.g.
+  
       `sudo apt install cpuid`
       ```
       assignment 2: cpuid -l 0x4ffffffc
