@@ -3,6 +3,34 @@
 1. Shubadha Paithankar(SJSU ID: 016013283)
 2. Sai Manasa Yadlapalli (SJSU ID: 015999659)
 
+## Assignment Questions
+1. Subhadha : I implemented the VMX exit time duration counter for each VM exit part of assignment.3
+I've measured the time duration between the start of the exit routine and it's exit.
+Tested the workflow and debugged the implementation with a sample cpuid program in guest os vm and updated the readme file with required info
+
+2. Manasa : I've implemented the VMX exit count per VM exit part of assignment.3
+This exit counter array is implemented similar to the way it's mentioned in the instructor video
+I've setup the dev environment with HostOS Ubuntu 2204 on VMWare workstation running on an Intel laptop.
+Compiled the Linux kernel tree and installed the Guest VM based on virt-manager.
+
+3. Comment on the frequency of exits – does the number of exits increase at a stable rate? Or are there
+more exits performed during certain VM operations? Approximately how many exits does a full VMboot entail?
+  - During the inner Guest VM boot sequeunce, we've seen a combined 10,626,554 total VM exits.
+  - Some VM exit categories seem to be more frequent than the others and the rate of increase is not quite stable.
+  - Exit reason count seem to be dependent on the type of VM operations performed.
+  
+4. Of the exit types defined in the SDM, which are the most frequent? Least?
+  - Most frequent : <br>
+    Exit type 48 : EPT violation accounts for ~89% of the total.
+    Exit type 10 : CPUID invocation : Probably due to the test program
+    Exit type 30 : I/O instructions
+    Exit type 32 : WRMSR instruction
+    Exit type 1 : External interrupts
+    
+  - Least frequent : <br>
+    Exit type 29 : MOV DR instruction : Debug register
+    Exit type 18 : VMCALL instruction by guest.
+
 ## Development Environment:
   1. Lenovo Ideapad Slimpro 14 laptop with Intel 11th Gen Intel(R) Core(TM) i5-11300H processor that supports VMX, VT-x,EPT and VT-d.
   2. Bare metal OS is Windows 11 with credential/device guard & virtualization based security disabled as per: https://kb.vmware.com/s/article/2146361
